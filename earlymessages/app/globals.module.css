@@ -1,0 +1,196 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #181c24 60%, #232946 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2vw;
+  position: relative;
+  overflow: hidden;
+}
+
+.backgroundPitch {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120vw;
+  height: 60vw;
+  max-width: 700px;
+  max-height: 350px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse at center, #3a5d23 60%, #23294600 100%);
+  opacity: 0.18;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.floatingBall {
+  position: absolute;
+  top: 10%;
+  left: 8%;
+  width: 32px;
+  height: 32px;
+  z-index: 1;
+  animation: floatBall 4s ease-in-out infinite alternate;
+}
+@keyframes floatBall {
+  0% { transform: translateY(0) scale(1);}
+  100% { transform: translateY(20px) scale(1.1);}
+}
+
+.floatingBat {
+  position: absolute;
+  bottom: 8%;
+  right: 7%;
+  width: 38px;
+  height: 90px;
+  z-index: 1;
+  opacity: 0.7;
+  animation: floatBat 5s ease-in-out infinite alternate;
+}
+@keyframes floatBat {
+  0% { transform: rotate(-10deg) translateY(0);}
+  100% { transform: rotate(10deg) translateY(-18px);}
+}
+
+.welcome {
+  color: #e0c097;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 12px #b48a4a55;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  animation: fadeInDown 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+  text-align: center;
+  z-index: 2;
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-40px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+.cricketScene {
+  position: relative;
+  width: 90vw;
+  max-width: 400px;
+  height: 44vw;
+  max-height: 200px;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  overflow: visible;
+  background: linear-gradient(120deg, #232946cc 60%, #181c24cc 100%);
+  border-radius: 32px;
+  border: 2.5px solid #b48a4a55;
+  box-shadow: 0 8px 32px #0008, 0 0px 0px #fff0;
+  z-index: 2;
+}
+
+.bat {
+  position: absolute;
+  left: 38vw;
+  bottom: 0;
+  width: 60px;
+  height: 200px;
+  z-index: 2;
+  /* The transform-origin is set via Framer Motion's style prop */
+  filter: drop-shadow(0 4px 12px #b48a4a44);
+}
+
+.ball {
+  position: absolute;
+  left: 0;
+  bottom: 40px;
+  width: 40px;
+  height: 40px;
+  z-index: 3;
+  will-change: transform;
+  filter: drop-shadow(0 2px 12px #e74c3c88);
+}
+
+.ballShadow {
+  position: absolute;
+  left: 10px;
+  bottom: 28px;
+  width: 32px;
+  height: 10px;
+  background: radial-gradient(ellipse at center, #0007 60%, transparent 100%);
+  border-radius: 50%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.comingSoon {
+  color: #fff;
+  font-size: 2.2rem;
+  letter-spacing: 0.15em;
+  text-shadow: 0 0 16px #e74c3c, 0 2px 8px #000a;
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  animation: glow 2s infinite alternate, fadeInUp 1.2s 0.5s backwards cubic-bezier(.68,-0.55,.27,1.55);
+  text-align: center;
+  margin-top: 0.5rem;
+  z-index: 2;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 16px #e74c3c, 0 2px 8px #000a;}
+  to { text-shadow: 0 0 32px #e74c3c, 0 2px 16px #000a;}
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .welcome, .comingSoon {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+  }
+  .cricketScene {
+    height: 32vw;
+    max-height: 120px;
+    border-radius: 18px;
+    margin-bottom: 18px;
+  }
+  .bat {
+    width: 36px;
+    height: 120px;
+    left: 38vw;
+  }
+  .ball {
+    width: 24px;
+    height: 24px;
+    bottom: 18px;
+  }
+  .ballShadow {
+    width: 18px;
+    height: 5px;
+    left: 4px;
+    bottom: 10px;
+  }
+  .backgroundPitch {
+    width: 110vw;
+    height: 40vw;
+    max-width: 400px;
+    max-height: 160px;
+  }
+  .floatingBall {
+    width: 18px;
+    height: 18px;
+    top: 7%;
+    left: 4%;
+  }
+  .floatingBat {
+    width: 22px;
+    height: 54px;
+    bottom: 4%;
+    right: 3%;
+  }
+}
+

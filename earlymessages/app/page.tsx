@@ -1,101 +1,78 @@
-import Image from "next/image";
+'use client';
+import styles from './globals.module.css';
+import { motion, useAnimation } from 'framer-motion';
+import { useEffect } from 'react';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const ballControls = useAnimation();
+  const batControls = useAnimation();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+  useEffect(() => {
+    const sequence = async () => {
+      while (true) {
+        await ballControls.start({ x: '36vw', y: 0, transition: { duration: 0.8, ease: 'easeIn' } });
+        await batControls.start({ rotate: -10, transition: { duration: 0.15 } });
+        await Promise.all([
+          ballControls.start({ x: '80vw', y: '-40vw', scale: 1.2, opacity: 0, transition: { duration: 0.7, ease: 'easeOut' } }),
+          batControls.start({ rotate: -30, transition: { duration: 0.2 } }),
+        ]);
+        await ballControls.start({ x: '-30vw', y: 0, scale: 1, opacity: 1, transition: { duration: 0 } });
+        await new Promise(res => setTimeout(res, 500));
+      }
+    };
+    sequence();
+  }, [ballControls, batControls]);
+
+  return (
+    <div className={styles.container}>
+      {/* Decorative pitch background */}
+      <div className={styles.backgroundPitch}></div>
+      {/* Floating cricket ball */}
+      <div className={styles.floatingBall}>
+        <svg viewBox="0 0 40 40" width="100%" height="100%">
+          <circle cx="20" cy="20" r="16" fill="#e74c3c" stroke="#fff" strokeWidth="3"/>
+          <ellipse cx="20" cy="20" rx="12" ry="3" fill="#fff8" transform="rotate(-20 20 20)" />
+        </svg>
+      </div>
+      {/* Floating cricket bat */}
+      <div className={styles.floatingBat}>
+        <svg viewBox="0 0 60 200" width="100%" height="100%">
+          <rect x="22" y="10" width="16" height="50" rx="8" fill="#b48a4a" stroke="#8d6e3c" strokeWidth="3"/>
+          <rect x="10" y="60" width="40" height="120" rx="12" fill="#e0c097" stroke="#b48a4a" strokeWidth="4"/>
+          <rect x="18" y="70" width="8" height="100" rx="4" fill="#fff2" />
+        </svg>
+      </div>
+      <h2 className={styles.welcome}>Welcome to GroundsHunt</h2>
+      <div className={styles.cricketScene}>
+        {/* Bat SVG */}
+        <motion.div
+          className={styles.bat}
+          animate={batControls}
+          initial={{ rotate: -30 }}
+          style={{ originX: 0.15, originY: 0.8 }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+          <svg viewBox="0 0 60 200" width="60" height="200" style={{ display: 'block' }}>
+            <rect x="22" y="10" width="16" height="50" rx="8" fill="#b48a4a" stroke="#8d6e3c" strokeWidth="3"/>
+            <rect x="10" y="60" width="40" height="120" rx="12" fill="#e0c097" stroke="#b48a4a" strokeWidth="4"/>
+            <rect x="18" y="70" width="8" height="100" rx="4" fill="#fff2" />
+          </svg>
+        </motion.div>
+        {/* Ball SVG */}
+        <motion.div
+          className={styles.ball}
+          animate={ballControls}
+          initial={{ x: '-30vw', y: 0, scale: 1, opacity: 1 }}
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          <svg viewBox="0 0 40 40" width="40" height="40">
+            <circle cx="20" cy="20" r="16" fill="#e74c3c" stroke="#fff" strokeWidth="3"/>
+            <ellipse cx="20" cy="20" rx="12" ry="3" fill="#fff8" transform="rotate(-20 20 20)" />
+            <ellipse cx="20" cy="20" rx="12" ry="3" fill="#fff4" transform="rotate(20 20 20)" />
+          </svg>
+        </motion.div>
+        {/* Ball shadow */}
+        <div className={styles.ballShadow}></div>
+      </div>
+      <h1 className={styles.comingSoon}>Coming Soon</h1>
     </div>
   );
 }
